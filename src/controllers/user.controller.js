@@ -48,7 +48,7 @@ const signin = async (req, res) => {
 
     const user = await userModel
       .findOne({ email })
-      .select('email password salt id');
+      .select('email username password salt id');
 
     if (!user) {
       return responseHandler.badrequest(res, 'User not exist');
