@@ -31,7 +31,7 @@ router.post(
 
 router.post(
   '/signin',
-  body('email').exists().withMessage('email is required'),
+  body('email').exists().withMessage('email is required').trim().isEmail(),
   body('password')
     .exists()
     .withMessage('password is required')
