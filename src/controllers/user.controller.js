@@ -4,6 +4,12 @@ import userModel from '../models/user.model.js';
 
 const signup = async (req, res) => {
   try {
+    // const test = {
+    //   username: 'test',
+    //   email: 'test@test.com',
+    //   password: 'test',
+    // };
+
     const { username, email, password } = req.body;
 
     const checkUser = await userModel.findOne({ username });
@@ -36,6 +42,41 @@ const signup = async (req, res) => {
   }
 };
 
+const signin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await userModel
+      .findOne({ email })
+      .select('email password salt id');
+
+    if (!user) {
+      return responseHandler.badrequest(res, 'User not exist');
+    }
+
+    if (!user.validatePassword(password)) {
+      return responseHandler.badrequest(res, 'Wrong password');
+    }
+
+    const token = jsonwebtoken.sign(
+      { data: user.id },
+      process.env.TOKEN_SECRET,
+      { expiresIn: '24h' }
+    );
+
+    user.password = undefined;
+    user.salt = undefined;
+
+    responseHandler.ok(res, {
+      token,
+      ...user._doc,
+      id: user.id,
+    });
+  } catch {
+    responseHandler.error(res);
+  }
+};
+
 const getInfo = async (req, res) => {
   const { id } = req.query;
 
@@ -52,5 +93,6 @@ const getInfo = async (req, res) => {
 
 export default {
   signup,
+  signin,
   getInfo,
 };
