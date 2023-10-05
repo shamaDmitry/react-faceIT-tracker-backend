@@ -2,6 +2,7 @@ import express from 'express';
 import { body } from 'express-validator';
 import userController from '../controllers/user.controller.js';
 import requestHandler from '../handlers/request.handler.js';
+import tokenMiddleware from '../middlewares/token.middleware.js';
 import userModel from '../models/user.model.js';
 
 const router = express.Router();
@@ -40,6 +41,9 @@ router.post(
   requestHandler.validate,
   userController.signin
 );
+
 router.get('/info', userController.getInfo);
+
+router.get('/test', tokenMiddleware.auth, userController.getTest);
 
 export default router;

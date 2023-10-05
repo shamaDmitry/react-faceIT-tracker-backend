@@ -91,8 +91,20 @@ const getInfo = async (req, res) => {
   }
 };
 
+const getTest = async (req, res) => {
+  try {
+    responseHandler.ok(res, {
+      msg: 'user test',
+      test: req.user,
+    });
+  } catch {
+    responseHandler.error(res);
+  }
+};
+
 export default {
   signup,
   signin,
   getInfo,
+  getTest,
 };

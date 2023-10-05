@@ -20,7 +20,7 @@ const created = (res, data) => responseWithData(res, 201, data);
 const unauthorize = res =>
   responseWithData(res, 401, {
     status: 401,
-    message: 'Unathorized',
+    message: 'Unauthorized',
   });
 
 const notfound = res =>

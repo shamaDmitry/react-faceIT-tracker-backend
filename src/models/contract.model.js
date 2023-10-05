@@ -3,15 +3,20 @@ import modelOptions from './model.options.js';
 
 const contractSchema = new mongoose.Schema(
   {
-    username: {
+    userId: {
       type: mongoose.Types.ObjectId,
       ref: 'User',
+      required: true,
     },
     contractName: {
       type: String,
       required: true,
     },
     workedTime: {
+      type: Number,
+      required: true,
+    },
+    clientName: {
       type: String,
       required: true,
     },
