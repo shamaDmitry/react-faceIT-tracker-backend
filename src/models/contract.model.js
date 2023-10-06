@@ -20,6 +20,9 @@ const contractSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    memoText: {
+      type: String,
+    },
   },
   modelOptions
 );

@@ -25,6 +25,10 @@ router.post(
 
 router.get('/list', tokenMiddleware.auth, contractController.getAllContracts);
 
-router.get('/:id', tokenMiddleware.auth, contractController.getContract);
+router.get(
+  '/:contractId',
+  tokenMiddleware.auth,
+  contractController.getContract
+);
 
 export default router;

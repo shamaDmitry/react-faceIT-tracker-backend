@@ -37,11 +37,10 @@ const getAllContracts = async (req, res) => {
 
 const getContract = async (req, res) => {
   try {
-    const { contractId } = req.body;
+    const { contractId } = req.params;
 
-    const contract = await contractModel.find({
-      userId: req.user.id,
-      id: contractId,
+    const contract = await contractModel.findOne({
+      _id: contractId,
     });
 
     if (contract) {

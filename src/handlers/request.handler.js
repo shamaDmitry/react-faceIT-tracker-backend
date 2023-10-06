@@ -5,7 +5,8 @@ const validate = (req, res, next) => {
 
   if (!errors.isEmpty())
     return res.status(400).json({
-      errors: errors.array().map(error => ({
+      status: 400,
+      message: errors.array().map(error => ({
         path: error.path,
         msg: error.msg,
       })),
